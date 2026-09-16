@@ -1,0 +1,13 @@
+@page "/Error"
+
+<PageTitle>Error</PageTitle>
+
+@* MudStack *@
+<MudStack Spacing="4">
+    <MudText Typo="Typo.h5">Error</MudText>
+    <MudText>Something Went Wrong While Processing Your Request</MudText>
+    @if (ShowRequestId)
+    {
+        <MudText Typo="Typo.body2">Request Id @RequestId</MudText>
+    }
+</MudStack>

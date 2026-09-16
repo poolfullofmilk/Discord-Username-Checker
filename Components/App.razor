@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+@* Head *@
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme"
+          content="dark" />
+    <base href="/" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet"
+          href="@Assets["_content/MudBlazor/MudBlazor.min.css"]" />
+    <HeadOutlet @rendermode="InteractiveServer" />
+</head>
+
+@* Body *@
+<body>
+    <Routes @rendermode="InteractiveServer" />
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
+    <script src="@Assets["_content/MudBlazor/MudBlazor.min.js"]"></script>
+    <script>
+        window.getBrowserTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
+    </script>
+</body>
+
+</html>

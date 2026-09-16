@@ -1,0 +1,113 @@
+@page "/"
+
+<PageTitle>Discord Username Checker</PageTitle>
+
+<MudStack Spacing="6">
+
+    @* MudStack *@
+    <MudStack Row
+              AlignItems="AlignItems.Center"
+              Spacing="3">
+        <MudIcon Icon="@Icons.Material.Rounded.AlternateEmail"
+                 Color="Color.Primary"
+                 Size="Size.Large" />
+        <MudStack Spacing="0">
+            <MudText Typo="Typo.h6">Discord Username Checker</MudText>
+            <MudText Typo="Typo.body2"
+                     Color="Color.Secondary">
+                One Name Every 12 Minutes
+            </MudText>
+        </MudStack>
+    </MudStack>
+
+    @* MudAlert *@
+    @if (UsernameCheckService.AlertMessage.Length > 0)
+    {
+        <MudAlert Severity="UsernameCheckService.AlertSeverity"
+                  Variant="Variant.Filled"
+                  Elevation="4"
+                  ShowCloseIcon="true"
+                  CloseIconClicked="UsernameCheckService.ClearAlert">
+            @UsernameCheckService.AlertMessage
+        </MudAlert>
+    }
+
+    @* MudPaper *@
+    <MudPaper Elevation="4"
+              Class="pa-6">
+        <MudStack Spacing="4">
+            <MudTextField @bind-Value="UsernameCheckService.UsernamesInput"
+                          Label="Usernames"
+                          HelperText="One Per Line Max 5"
+                          Lines="5"
+                          Variant="Variant.Outlined"
+                          Disabled="UsernameCheckService.IsRunning" />
+            <MudStack Row
+                      AlignItems="AlignItems.Center"
+                      Spacing="3">
+                <MudButton OnClick="ToggleRunning"
+                           StartIcon="@RunToggleIcon"
+                           Variant="Variant.Filled"
+                           Color="@RunToggleColor"
+                           Class="rounded-pill px-6 mud-elevation-4">
+                    @RunToggleLabel
+                </MudButton>
+                <MudSpacer />
+                <MudChip T="string"
+                         Size="Size.Small"
+                         Variant="Variant.Filled"
+                         Color="@RunStatusColor"
+                         Class="mr-0 mud-elevation-4">
+                    @RunStatusText
+                </MudChip>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+
+    @* MudTable *@
+    <MudTable Items="UsernameCheckService.CheckResults"
+              Elevation="4"
+              Hover
+              Dense>
+
+        <HeaderContent>
+            <MudTh>Username</MudTh>
+            <MudTh>Status</MudTh>
+            <MudTh>Last Check</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Username">@context.Username</MudTd>
+            <MudTd DataLabel="Status">
+                <MudChip T="string"
+                         Size="Size.Small"
+                         Variant="Variant.Filled"
+                         Color="@GetStatusColor(context.Status)"
+                         Class="ml-0 mud-elevation-4">
+                    @context.Status
+                </MudChip>
+            </MudTd>
+            <MudTd DataLabel="Last Check">
+                <MudText Typo="Typo.body2"
+                         Color="Color.Secondary">
+                    @BrowserTimeZone.FormatTime(context.LastCheckedAt)
+                </MudText>
+            </MudTd>
+        </RowTemplate>
+
+        <NoRecordsContent>
+            <MudStack AlignItems="AlignItems.Center"
+                      Spacing="2"
+                      Class="pa-6">
+                <MudIcon Icon="@Icons.Material.Rounded.Inbox"
+                         Color="Color.Secondary"
+                         Size="Size.Large" />
+                <MudText Typo="Typo.body2"
+                         Color="Color.Secondary">
+                    No Results Yet
+                </MudText>
+            </MudStack>
+        </NoRecordsContent>
+
+    </MudTable>
+</MudStack>
