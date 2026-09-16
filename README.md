@@ -2,6 +2,10 @@
 
 Watch Whether The Discord Usernames You Want Are Free, Around The Clock
 
+![Discord Username Checker](Screenshot-Idle.png)
+
+![Discord Username Checker Running](Screenshot-Running.png)
+
 ## Features
 - Paste Up To 5 Usernames, One Per Line, Duplicates Removed Automatically
 - Checks One Name Every 12 Minutes In Rotation, So 5 Names Are Each Rechecked Hourly
